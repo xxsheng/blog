@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>首页</title>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" href="../../static/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+    <link th:href="@{/bootstrap/css/bootstrap-theme.css}" href="../../static/bootstrap/css/bootstrap-theme.css" rel="stylesheet"/>
+    <link rel="import" href="../common/top.html">
+</head>
+<body>
+<!--引入导航栏-->
+<div th:include="/common/top :: top">
+    <iframe marginheight="0" marginwidth="0" hspace="0" vspace="0" frameborder="0" scrolling=no src="../common/top.html" height="auto" width="100%"></iframe>
+</div>
+
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:utext="${article.title}">spring boot</h3>
+        </div>
+        <div class="panel-body">
+            <div th:utext="${article.content}">
+                ====================10.31=========================
+
+                一、注解
+
+                1.RestController:类中返回的是json：相当于Controller+ResponseBody
+                无法返回jsp页面，配置的视图解析器InternalResourceViewResolver无用
+                返回的就是return中的内容
+
+                2.Controller：页面开发，跳转页，用于标注控制层，注入服务
+
+                3.Configuration：定义配置类，代替xml配置文件，包含多个被@bean注解的方法，
+                不可以是final类和匿名类
+                嵌套的configuration必须为静态类
+
+                4.bean：将类交给spring管理，
+                component：实例化poji，同bean，
+
+                5.service：用于标注服务层，进行业务逻辑处理，注入dao
+
+                6.repository：标注数据访问层，实现dao访问
+
+                7.autowired：自动注入，实例化bean，
+                如果只有一个bean，就实例化，
+                如果有多个bean，就找名字对应的和bean中用repository的标记的名字一样的
+                如果想使用这个名字装载其他实例，可以使用Qualifier配置属性名
+
+                8.transient:不用和表中字段相关联的属性用该标记
+
+                二、spring data jpa（Java持久化规范）为了简化持久化开发工作和整合orm技术
+                1.声明接口xxxRepository继承JpaRepository<实体类名，主键类型>
+                2.默认方法：save（user）保存，findAll查找所有，count数量，exists（id）是否存在，
+                delete（user）删除，findOne（id）根据id查找
+                3.自定义方法：findByxxx，readByxxx，countByxxx，deleteByxxx（And/Or/OrderBy/Like/IgnoreCase.....）
+                4.分页查询:Pageable,Sort(springframwork.data.domain)
+                int page = 2;
+                int size = 2;
+                Sort sort = new Sort(Sort.Direction.DESC,"id");
+                //     Pageable pageable = new PageRequest(page,size,sort);//过时，不建议使用
+                Pageable pageable1 = PageRequest.of(page,size,sort);
+                Page<User> users = userRepository.findAll(pageable1);
+                    5.自定义SQL查询
+                    @Modifying删除修改需要加此注解
+                    @Query（“sql语句”）
+                    @Transactional事务
+                    三、thymeleaf
+
+                    =====================11.01========================
+                    四、RabbitMQ（一种消息队列，是实现AMQP的消息中间件的一种）
+                    AMQP（Advanced Message Queuing Protocol，高级消息队列协议）
+                    消息中间件：当生产者大量产生数据时，消费者无法快速消费，那么需要一个中间层来保存这个数据。
+
+                    五、Mysql Redis   Mongodb
+                    tar -xvf解压.tar文件，tar -zxvf解压tar.gz文件
+
+                    service mysqld start和service mysqld stop启动和关闭mysql
+
+                    redis启动:./redis-server  ctrl+c停止
+                    ./redis-server ./redis.conf启动
+                    ./redis-cli shutdown关闭
+                    ./redis-cli 启动基于命令行的客户端
+
+                    六、定时任务
+
+                    七、邮件
+
+                    八、centOs7查看ip地址（ifconfig/ip addr）
+                    在ens33下的inet属性，如果没有，就没法通过ip地址连接虚拟机
+                    解决：vi /etc/sysconfig/network-scripts/ifcfg-ens33
+                    修改末尾有个属性ONBOOT为yes，默认是no即不启动网卡，wq保存
+                    重启动网络服务：service network restart，然后就可以查看IP地址了
+
+                    九、安装mysql：https://www.cnblogs.com/lunatic-cto/p/6123490.html
+
+                    十、远程访问mysql时，root用户默认是不支持远程连接的，需要自己配置
+                    https://blog.csdn.net/xiongyu1010/article/details/52229988
+                    1.mysql> update user set host = ‘%’ where user = ‘root’ and host=’127.0.0.1’;
+                    2.grant all privileges on *.* to 'root'@'%' identified by '123456' with grant option;
+                    3.fulsh privileges
+                    注意：IP地址是自动分配的，连接时需要查看IP，ifconfig，ip addr
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/jquery-3.2.1.min.js}" src="../../static/jquery-3.2.1.min.js" type="text/javascript"></script>
+<script th:src="@{/bootstrap/js/bootstrap.js}" src="../../static/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>
