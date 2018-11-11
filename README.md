@@ -11,3 +11,5 @@ springboot博客框架
 至于在你电脑上会出现什么bug，我也不知，自行解决
 
 后期会继续更新此框架
+
+shiro https://www.cnblogs.com/liangblog/p/6086798.html
