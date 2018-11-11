@@ -68,6 +68,11 @@
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+        	<groupId>org.apache.shiro</groupId>
+        	<artifactId>shiro-spring</artifactId>
+        	<version>1.2.2</version>
+        </dependency>
     </dependencies>
 
     <build>
