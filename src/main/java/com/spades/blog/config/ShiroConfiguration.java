@@ -8,11 +8,13 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.SessionListener;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.apache.shiro.web.env.DefaultWebEnvironment;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -57,7 +59,31 @@ public class ShiroConfiguration {
 	
 	@Bean
 	public SecurityManager securityManager() {
-		DefaultWebSecurityManager sessionManager = new DefaultWebSecurityManager();
+		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+		MyRealm myRealm = new MyRealm();
+		securityManager.setRealm(myRealm);
+		securityManager.setSessionManager(sessionManager());
+		securityManager.setCacheManager(ehCacheManager());
 		
+		return securityManager;
+	}
+
+	@Bean
+	public SessionManager sessionManager() {
+		
+		DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+		Collection<SessionListener> listeners = new ArrayList<SessionListener>();
+		listeners.add(new MySessionListener());
+		sessionManager.setSessionListeners(listeners);
+		
+		return sessionManager;
+	}
+	
+	@Bean
+	public EhCacheManager ehCacheManager() {
+		
+		EhCacheManager ehCacheManager = new EhCacheManager();
+		
+		return ehCacheManager;
 	}
 }

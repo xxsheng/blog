@@ -12,4 +12,5 @@ springboot博客框架
 
 后期会继续更新此框架
 
-shiro https://www.cnblogs.com/liangblog/p/6086798.html
+shiro1 https://www.cnblogs.com/liangblog/p/6086798.html
+shiro2 https://www.cnblogs.com/expiator/p/8651798.html

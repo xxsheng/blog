@@ -18,4 +18,10 @@ public class UserServie {
             return true;
         }
     }
+    
+    public User getUserByName(String username) {
+    	User user = userDao.findBuUserName(username);
+    	
+    	return user;
+    }
 }
