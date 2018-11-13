@@ -50,9 +50,9 @@ public class MyRealm extends AuthorizingRealm {
 		// TODO Auto-generated method stub
 		logger.debug("登陆操作进行登陆认证.......");
 		
-		UsernamePasswordToken token1 = (UsernamePasswordToken)token;
+		String userName = (String)token.getPrincipal();
 		
-		User user = userservice.getUserByName(token1.getUsername());
+		User user = userservice.getUserByName(userName);
 		if(user == null) {
 			//没有找到账号
 			throw new UnknownAccountException("没有在本系统中找到用户信息。");
