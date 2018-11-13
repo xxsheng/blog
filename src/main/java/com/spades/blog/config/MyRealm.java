@@ -46,20 +46,23 @@ public class MyRealm extends AuthorizingRealm {
 	}
 
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 		// TODO Auto-generated method stub
 		logger.debug("登陆操作进行登陆认证.......");
 		
-		String userName = (String)token.getPrincipal();
+		UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
 		
-		User user = userservice.getUserByName(userName);
+		//String userName = (String)authenticationToken.getPrincipal();
+		
+		User user = userservice.getUserByName(token.getUsername());
+		System.out.println("-------------查找用户");
 		if(user == null) {
 			//没有找到账号
 			throw new UnknownAccountException("没有在本系统中找到用户信息。");
 			
 		}
 		
-		SimpleAuthenticationInfo  info = new SimpleAuthenticationInfo (user.getUserName(),user.getPassword(),getName());
+		SimpleAuthenticationInfo  info = new SimpleAuthenticationInfo (token.getPrincipal(),user.getPassword(),getName());
 		
 		return info;
 	}

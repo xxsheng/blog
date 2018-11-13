@@ -6,6 +6,10 @@ import com.spades.blog.entity.User;
 import com.spades.blog.service.ArticleService;
 import com.spades.blog.service.CategoryService;
 import com.spades.blog.service.UserServie;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +50,14 @@ public class UserController {
     @RequestMapping(value = "/dologin",method = RequestMethod.POST)
     public String doLogin(HttpServletResponse response, User user,Model model){
         System.out.println(user);
+        
+        // 从SecurityUtils里边创建一个 subject
+        Subject subject = SecurityUtils.getSubject();
+        // 在认证提交前准备 token（令牌）
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), user.getPassword());
+        // 执行认证登陆
+        subject.login(token);
+        
         if (userServie.login(user.getUserName(),user.getPassword())){
             model.addAttribute("user", user);
             return "redirect:/admin";

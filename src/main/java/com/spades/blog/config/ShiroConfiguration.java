@@ -44,9 +44,6 @@ public class ShiroConfiguration {
 		//必须设置SecurityManager
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-		//拦截器
-		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
-		
 		//filterChainDefinitionMap.put("/page/*", "authc");
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         //filterChainDefinitionMap.put("/security/logoff", "logout");
@@ -56,25 +53,50 @@ public class ShiroConfiguration {
 		//未授权界面
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 		
-		Map<String,Filter> filterMap = new LinkedHashMap<>();
-		shiroFilterFactoryBean.setFilters(filterMap);
+		//拦截器
+		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<String,String>();
 		
-		
-		filterChainDefinitionMap.put("/admin/**", "authc");
+		 //开放登陆接口
+        filterChainDefinitionMap.put("/admin/login", "anon");
+        filterChainDefinitionMap.put("/admin/dologin", "anon");
+        //filterChainDefinitionMap.put("/acticle/", "anon");
 		filterChainDefinitionMap.put("/acticle/**", "anon");
+		filterChainDefinitionMap.put("/js/**", "anon");
+		filterChainDefinitionMap.put("/css/**", "anon");
+		filterChainDefinitionMap.put("/bootstrap/**", "anon");
+		filterChainDefinitionMap.put("/jquery-3.2.1.min.js", "anon");
+		filterChainDefinitionMap.put("/favicon.ico", "anon");
+		
+        //其余接口一律拦截
+        //主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
+        filterChainDefinitionMap.put("/admin/**", "authc");
+		
+		
 		
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		
+		System.out.println("Shiro拦截器工厂类注入成功");
 		return shiroFilterFactoryBean;
 		
 				
 	}
 	
+    /**
+     * 身份认证Realm，此处的注入不可以缺少。否则会在UserRealm中注入对象会报空指针.
+     * @return
+     */
+    @Bean
+    public MyRealm myShiroRealm(  ){
+        MyRealm myShiroRealm = new MyRealm();
+       // myShiroRealm.setCredentialsMatcher(  hashedCredentialsMatcher() );
+        return myShiroRealm;
+    }
+	
 	@Bean
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		MyRealm myRealm = new MyRealm();
-		securityManager.setRealm(myRealm);
+		
+		securityManager.setRealm(myShiroRealm());
 		securityManager.setSessionManager(sessionManager());
 		securityManager.setCacheManager(ehCacheManager());
 		
