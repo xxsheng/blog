@@ -6,3 +6,50 @@ https://pan.baidu.com/share/init?surl=V36Ww2JUKt6LhOKmmAjNOA qhap mybatis
 https://pan.baidu.com/share/init?surl=5PPbQXgIJ1aEnkDx0lI0zg s062 shiro
 https://pan.baidu.com/share/init?surl=iu4JmMquPr3TuhOZJUI4fw 9l1k
 https://pan.baidu.com/share/init?surl=RdAZAaonmLQYuliC-ToAwQ ppgh
+
+
+消息中间件 
+https://www.cnblogs.com/lifeibai/p/9167701.html
+https://www.cnblogs.com/lifeibai/p/9167701.html
+https://www.cnblogs.com/HigginCui/p/6478613.html
+
+git分之合并 
+https://git-scm.com/book/zh/v1/Git-分支-分支的新建与合并
+
+单点登录 
+https://www.cnblogs.com/ywlaker/p/6113927.html
+https://blog.csdn.net/qq_39089301/article/details/80615348
+https://www.cnblogs.com/x-poior/p/6200919.html
+
+分布式事物
+https://www.jianshu.com/p/73beee3c70e9
+https://www.cnblogs.com/clarke157/p/8111685.html
+
+cookie与session
+https://www.cnblogs.com/moyand/p/9047978.html
+
+高并发
+https://www.cnblogs.com/lr393993507/p/5909804.html
+
+http无状态协议
+https://www.cnblogs.com/bellkosmos/p/5237146.html#undefined#undefined
+
+大神博客
+http://www.ityouknow.com/springboot/2017/06/26/springboot-shiro.html
+
+javaRPC
+https://www.cnblogs.com/codingexperience/p/5930752.html
+
+Java RMI
+https://www.cnblogs.com/ygj0930/p/6542811.html
+
+Netty
+https://www.cnblogs.com/tdg-yyx/p/8376842.html
+https://blog.csdn.net/gyshun/article/details/81457808
+https://www.zhihu.com/question/24322387
+
+Java泛型类
+https://blog.csdn.net/qq_27093465/article/details/73229016
+
+Java设计模式
+https://www.cnblogs.com/malihe/p/6891920.html
