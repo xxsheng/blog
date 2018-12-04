@@ -30,7 +30,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav" id="nv1">
-                        <li class="active" id="firstPage"><a th:href="@{/article/}">首页</a></li>
+                        <li class="active" id="firstPage"><a th:href="@{/article}">首页</a></li>
                         <li id="javaPage"><a th:href="@{/article/column/Java/java}">Java专栏</a></li>
                         <li id="springPage"><a th:href="@{/article/column/Spring/spring}">Spring专栏</a></li>
                         <li id="jsPage"><a th:href="@{/article/column/Front/front}">前端专栏</a></li>
@@ -65,9 +65,40 @@
             <!--}-->
         <!--}-->
     <!--</script>-->
-
+    
 <script th:src="@{/jquery-3.2.1.min.js}" src="../../static/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script th:src="@{/bootstrap/js/bootstrap.js}" src="../../static/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+     	var urlstr = location.pathname;
+    	var urlstatus = false;
+    	
+    	$(".navbar-nav a").each(function() {
+    		if((urlstr).trim() == ($(this).attr('href').trim()) && $(this).attr('href') != ''){
+    			$(this).parent().addClass("active");
+    			urlstatus = true;
+    		}else {
+    			$(this).parent().removeClass("active");
+    		}
+    		
+    	});
+    	
+    	if(!urlstatus) {
+    		$(".navbar-nav a").eq(0).addClass('active');
+    	} 
+    	
+/*     	var urlstr = location.href;
+    	  //alert(urlstr);
+    	  var urlstatus=false;
+    	  $(".navbar-nav a").each(function () {
+    	    if ((urlstr + '/').indexOf($(this).attr('href')) > -1&&$(this).attr('href')!='') {
+    	      $(this).addClass('active'); urlstatus = true;
+    	    } else {
+    	      $(this).removeClass('active');
+    	    }
+    	  });
+    	  if (!urlstatus) {$(".navbar-nav a").eq(0).addClass('active'); } */
+    	 
+    </script>
 </div>
     </body>
 
